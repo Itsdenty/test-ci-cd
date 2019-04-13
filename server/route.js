@@ -1,6 +1,7 @@
 import express from 'express';
 import swaggerJSDoc from 'swagger-jsdoc';
-
+import validator from './mailValidator';
+import mailer from './mail';
 const router = express.Router();
 
 
@@ -11,7 +12,7 @@ const swaggerDefinition = {
     version: '1.0.0',
     description: 'Api documentation for CI/CD Test.',
   },
-  host: 'http://localhost:3100/',
+  host: 'localhost:3100/',
   basePath: ''
 };
 
@@ -36,9 +37,14 @@ router.get('/swagger.json', (req, res) => {
   res.send(swaggerSpec);
 });
 
-// api v1 routes
+// main route
 router.get('/', (req, res) => {
   res.send('You\'ve reached our routes');
 });
 
+// send email route
+router.post('/contact', validator.contact, (req, res) => {
+  const sendMail = mailer.mailAdmin(req.body);
+  res.send({status: 200, message: 'Mail successfully queeued for sending'});
+});
 export default router;
