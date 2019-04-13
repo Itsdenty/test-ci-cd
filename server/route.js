@@ -12,7 +12,7 @@ const swaggerDefinition = {
     version: '1.0.0',
     description: 'Api documentation for CI/CD Test.',
   },
-  host: 'localhost:3100/',
+  host: 'meal-test.herokuapp.com/',
   basePath: ''
 };
 

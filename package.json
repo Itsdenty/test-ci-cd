@@ -4,8 +4,10 @@
   "description": "for testing ci-cd",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node server/index.js",
-    "build": "babel server --out-dir dist",
+    "start-dev": "nodemon --exec babel-node server/index.js",
+    "build": "babel server --copy-files --out-dir dist",
+    "start": "node dist/index.js",
+    "heroku-postbuild": "npm run build",
     "serve": "node dist/index.js",
     "test": "nyc mocha --timeout 20000 -r @babel/register server/test.js --exit ",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
